@@ -1,0 +1,313 @@
+<nz-steps [nzCurrent]="current">
+    <nz-step *ngFor="let step of this.steps; trackBy: trackById" [nzTitle]="step.title"
+        [nzPercentage]="step.async ? step.percentage : null">
+    </nz-step>
+</nz-steps>
+<form nz-form [formGroup]="formCotizaciones" style="width: 100%;">
+    <ng-container *ngIf="current == 0">
+        <!-- formulario de registro -->
+        <div nz-row [nzGutter]="24" nzJustify="center" style="justify-content: space-evenly;">
+
+            <!-- SECTION 1 -->
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Fecha de solictud<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un fecha de solicitud">
+                        <nz-date-picker formControlName="fechaSolicitud"></nz-date-picker>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Número de documento <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un número de documento!">
+                        <input nz-input class="input-field" formControlName="identificacion"
+                            placeholder="Ingrese un número de documento" type="number"
+                            (keypress)="($event.charCode === 8 || $event.charCode === 0 || $event.charCode === 13) ? null : $event.charCode >= 48 && $event.charCode <= 57" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Primer nombre<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un primer nombre!">
+                        <input nz-input class="input-field" formControlName="primerNombre"
+                            placeholder="Ingrese un correo eléctronico" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Primer apellido <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un primer apellido!">
+                        <input nz-input class="input-field" formControlName="primerApellido"
+                            placeholder="Ingrese un correo eléctronico" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- SECTION 2 -->
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Email <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un correo eléctronico!">
+                        <input nz-input class="input-field" formControlName="correo" type="email"
+                            placeholder="Ingrese un correo eléctronico" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Medio de notificación <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, Seleccione un medio de notificación!">
+                        <nz-select formControlName="fkMedioNotificacion"
+                            nzPlaceHolder="Seleccione un medio notificación">
+                            <nz-option [nzValue]="undefined" nzLabel="Seleccione un medio notificación"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                                *ngFor="let item of medioNotificacion"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <!-- SECTION 3 -->
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Area responsable<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un area responsable!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkAreaResponsable">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione una area"></nz-option>
+                            <nz-option [nzValue]="item" [nzLabel]="item.nombre"
+                                *ngFor="let item of areaResponsable"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6" *ngIf="formCotizaciones.value.fkAreaResponsable.codigo == 'OPE'">
+                <label>Conductor<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un conductor!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkConductor">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione un conductor"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6" *ngIf="formCotizaciones.value.fkAreaResponsable.codigo == 'COO'">
+                <label>Empleado<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un empleado!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkEmpleado">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione un empleado"></nz-option>
+                            <nz-option [nzValue]="item.id"
+                                [nzLabel]="((item.first_name + ' '+item.last_name) | capitalize)"
+                                *ngFor="let item of listEmpleados"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6" *ngIf="formCotizaciones.value.fkAreaResponsable.codigo == 'OTR'">
+                <label>¿Cual?<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese la observacion!">
+                        <input nz-input class="input-field" formControlName="otrosObsevacion"
+                            placeholder="Ingrese una observacion" />
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Cliente<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un cliente">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkCliente"
+                            (ngModelChange)="changeClient()">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione un cliente"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.razonsocial"
+                                *ngFor="let item of listCentrosCostos"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Tipo solicitud<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de solicitud">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoSolicitud">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione un tipo"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                                *ngFor="let item of tipoSolicitud"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Criticidad <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione una criticidad!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkCriticidad">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione una criticidad"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                                *ngFor="let item of criticidad"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Causa<span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione una causa!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkCausa">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione una causa"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                                *ngFor="let item of causa"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+
+            <div nz-col [nzSpan]="24" [nzSm]="6">
+                <label>Tipo de servicio <span>*</span>:</label>
+                <nz-form-item>
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de servicio!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoServicio">
+                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
+                                nzLabel="Seleccione una tipo"></nz-option>
+                            <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                                *ngFor="let item of tipoServicio"></nz-option>
+                        </nz-select>
+                    </nz-form-control>
+                </nz-form-item>
+            </div>
+            <!-- SECTION 2 -->
+        </div>
+    </ng-container>
+    <ng-container *ngIf="current == 1">
+        <!-- <div nz-row [nzGutter]="24" nzJustify="center" style="justify-content: space-evenly;"> -->
+        <!-- <div nz-col [nzSpan]="24" [nzSm]="6"> -->
+        <div style="width: 100%;">
+            <label for="descripcion">Descripción <span>*</span>:</label>
+            <nz-form-item>
+                <nz-form-control nz-col [nzSpan]="24" nzErrorTip="¡Por favor, ingrese una descripción!">
+                    <textarea placeholder="Ingrese una descripcion" rows="7" formControlName="observacion"></textarea>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+        <!-- </div> -->
+        <!-- </div> -->
+    </ng-container>
+    <ng-container *ngIf="current == 2">
+        <label>Subir evidencia<span>*</span>:</label>
+        <div class="contenedor__card">
+            <div class="cont__foto">
+                <img draggable="false" src="../../../../assets/icons/fi_file-text.svg" height="50%" class="mx-2">
+            </div>
+            <div class="info__evidencia">
+                <b style="color: #FF6010 !important;">{{ currentFileName ? currentFileName : 'Presiona aquí' }} </b>
+                <b>{{ currentFileSize ? currentFileSize : 'para subir o arrastra y suelta un JPG,PNG y JPEG' }}</b>
+            </div>
+
+
+            <input class="file-input" id="fileInput" type="file" (change)="onFileSelected($event)">
+        </div>
+    </ng-container>
+    <ng-container *ngIf="current == 3">
+        <ng-container *ngIf="estadoPQR; else bloqueCard">
+            <div class="card__success">
+                <div class="notifications-container">
+                    <div class="success">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+
+                                <svg class="succes-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                    fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="success-prompt-wrap">
+                                <p class="success-prompt-heading">Proceso realizado con éxito
+                                </p>
+                                <div class="success-prompt-prompt">
+                                    <p>Hemos recibido tu solicitud de PQR. Queremos informarte que tu
+                                        solicitud ha sido registrada y será procesada con la máxima prioridad.
+                                        Agradecemos tu confianza y paciencia durante este proceso.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #bloqueCard>
+            <div class="card__success">
+                <div class="notifications-container">
+                    <div class="alert">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 alert-svg">
+                                    <path clip-rule="evenodd"
+                                        d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                        fill-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="alert-prompt-wrap">
+                                <p>Lamentamos informarte que no hemos podido registrar PQR. Nuestro equipo de soporte
+                                    revisará la situación y se pondrá
+                                    en contacto contigo para obtener más detalles y asistencia. Agradecemos tu
+                                    comprensión y estamos comprometidos a resolver este inconveniente lo antes posible.
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+
+    </ng-container>
+</form>
+
+<div class="steps-action">
+    <button nz-button nzType="default" (click)="pre(); this.emitirEvento(current)" *ngIf="current > 0 && !enviado">
+        <span>atrás</span>
+    </button>
+    <button nz-button nzType="default" (click)="next(); this.emitirEvento(current)" [nzLoading]="processing"
+        *ngIf="current < 2 && !enviado">
+        <span>Siguiente</span>
+    </button>
+    <button nz-button nzType="primary" (click)="done()" [nzLoading]="processing" *ngIf="current === 2 && !enviado">
+        <span>Enviar</span>
+    </button>
+    <button nz-button nzType="primary" (click)="nuevaPQR()" *ngIf="enviado">
+        <span>Registrar una nueva solictud</span>
+    </button>
+</div>
+
+
+<div class="modal" [ngStyle]="{'display': (modals ? '' : 'none')}">
+    <app-modal (estadoModal)="recibirEstadoModal($event)" [estadoModalView]="modals"
+        [message]="'Faltan campos del formulario por llenar, debe llenar todos los que tenga el *'"
+        [estado]="'Información'"></app-modal>
+</div>

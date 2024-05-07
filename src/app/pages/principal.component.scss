@@ -1,0 +1,94 @@
+.cont__fondo {
+  display: flex;
+}
+
+.cont__fondo-consult {
+  width: 100%;
+}
+
+.cont__fondo-register {
+  width: 100%;
+  padding: 25px 10px 0px 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cont__fondo-contact {
+  width: 100%;
+}
+
+.cont__fondo-portada {
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    display: none;
+    width: 85%;
+    height: 70%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  img.fondo {
+    width: 100%;
+    position: absolute;
+    height: auto;
+    top: 0px;
+    left: 0px;
+    z-index: -200;
+    background-position: top top;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+
+  // div.white {
+  //     width: 70%;
+  //     background-color: white;
+  //     position: absolute;
+  //     height: 100%;
+  //     top: 0px;
+  //     left: 0px;
+  //     border-top-right-radius: 50%;
+  //     border-bottom-right-radius: 50%;
+  //     z-index: -100;
+  // }
+}
+
+.icono {
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  img {
+    width: 60px;
+    height: 55px;
+    background-size: cover;
+    animation: parpader 2s ease-in infinite;
+  }
+}
+
+@keyframes parpader {
+  50% {
+    transform: scale(0.92);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (min-width: 768px) {
+  .cont__consulta {
+    width: 40%;
+  }
+
+  .cont__fondo-portada {
+    width: 60%;
+    img {
+      display: block;
+    }
+  }
+}

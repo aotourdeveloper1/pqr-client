@@ -1,0 +1,65 @@
+.cont__consulta {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  margin: auto;
+
+  padding: 0 22px;
+
+  .cont__consulta-h2 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #d46132;
+  }
+
+  .cont__consulta-p {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .cont__consulta-button {
+    display: flex;
+    gap: 8px;
+
+    .cont__button-input {
+      background-color: transparent;
+      color: black;
+      border: 2px solid #d46132;
+      text-transform: uppercase;
+      height: 35px;
+      border-radius: 6px;
+      width: 300px;
+      outline: none;
+      padding: 0px 10px;
+
+      &::placeholder {
+        color: #d46132;
+        font-size: 12px;
+        text-transform: none;
+        padding: 0px 5px;
+      }
+    }
+
+    .cont__button-button {
+      background-color: #d46132;
+      color: white;
+      border: 1px solid #d46132;
+      text-transform: uppercase;
+      height: 35px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 0px 8px;
+      cursor: pointer;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .cont__consulta {
+    width: 60%;
+  }
+}

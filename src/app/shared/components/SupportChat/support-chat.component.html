@@ -1,0 +1,65 @@
+<div class="chatbox-wrapper">
+  <div class="chatbox-toggle" (click)="mostrar = !mostrar">
+    <!-- <i class='bx bx-message-dots'></i> -->
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+      <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+      <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+    </svg>
+  </div>
+  <div class="chatbox-message-wrapper" [ngClass]="mostrar ? 'show' : ''">
+    <div class="chatbox-message-header">
+      <div class="chatbox-message-profile">
+        <img src="https://img2.freepng.es/20180702/wlb/kisspng-technical-support-computer-icons-customer-relation-5b3a334e7ef8b9.2259004315305408785201.jpg" alt="" class="chatbox-message-image">
+        <div>
+          <h4 class="chatbox-message-name">Soporte al cliente</h4>
+          <p class="chatbox-message-status">
+          <span></span>
+            online
+          </p>
+        </div>
+      </div>
+      <div class="chatbox-message-dropdown">
+        <i class='bx bx-dots-vertical-rounded chatbox-message-dropdown-toggle'></i>
+        <ul class="chatbox-message-dropdown-menu">
+          <li>
+            <a href="#">Search</a>
+          </li>
+          <li>
+            <a href="#">Report</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="chatbox-message-content">
+      <ng-container *ngIf="userMessage.length == 0; else bloque">
+        <h4 class="chatbox-message-no-message">No tienes mensajes disponibles!</h4>
+      </ng-container>
+      <ng-template #bloque>
+        <ng-container *ngFor="let item of userMessage">
+          <div class="chatbox-message-item sent">
+            <span class="chatbox-message-item-text">
+             {{ item.user }}
+            </span>
+            <span class="chatbox-message-item-time">08:30</span>
+          </div>
+          <div class="chatbox-message-item received">
+            <span class="chatbox-message-item-text">
+              {{ item.maquina }}
+            </span>
+            <span class="chatbox-message-item-time">08:30</span>
+          </div>
+        </ng-container>
+      </ng-template>
+    </div>
+    <div class="chatbox-message-bottom">
+      <form [formGroup]="formulario" class="chatbox-message-form">
+        <textarea rows="1" placeholder="Tipo de mensaje..." formControlName="message" class="chatbox-message-input"></textarea>
+        <button type="button" class="chatbox-message-submit" (click)="enviarMensaje()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-send-fill" viewBox="0 0 16 16">
+            <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855H.766l-.452.18a.5.5 0 0 0-.082.887l.41.26.001.002 4.995 3.178 3.178 4.995.002.002.26.41a.5.5 0 0 0 .886-.083l6-15Zm-1.833 1.89L6.637 10.07l-.215-.338a.5.5 0 0 0-.154-.154l-.338-.215 7.494-7.494 1.178-.471-.47 1.178Z"/>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

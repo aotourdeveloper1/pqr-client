@@ -1,0 +1,34 @@
+<div class="card" *ngIf="estadoModalView">
+    <button class="dismiss" type="button" (click)="this.emittirModal(!estadoModalView)">×</button>
+    <div class="header">
+        <div  [ngClass]="estado == estadoValido ? 'image' : 'not-image'">
+            <ng-container *ngIf="estado == estadoValido; else bloqueElse">
+                <svg class="image__svg" viewBox="0 0 24 24" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M20 7L9.00004 18L3.99994 13" stroke="#000000" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </ng-container>
+            <ng-template #bloqueElse>
+                <svg class="image__svg-not" fill="currentColor" viewBox="0 0 20 20" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                    <path clip-rule="evenodd"
+                        d="M18 3a1 1 0 00-1.447-.894L8.763 6H5a3 3 0 000 6h.28l1.771 5.316A1 1 0 008 18h1a1 1 0 001-1v-4.382l6.553 3.276A1 1 0 0018 15V3z"
+                        fill-rule="evenodd"></path>
+                </svg>
+            </ng-template>
+        </div>
+        <div class="content">
+            <span [ngClass]="estado == estadoValido ? 'title' : 'not-title'">
+            {{ estado == estadoValido ? 'Satisfactorio' : 'Información' }}
+            </span>
+            <p class="message">{{ message }}
+            </p>
+        </div>
+        <div class="actions">
+            <button [ngClass]="estado == estadoValido ? 'history' : 'not-history'" type="button" (click)="this.emittirModal(!estadoModalView)">OK</button>
+        </div>
+    </div>
+</div>

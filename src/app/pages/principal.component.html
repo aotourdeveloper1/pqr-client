@@ -1,0 +1,23 @@
+<app-navbar (navbar)="actions($event)"></app-navbar>
+<section class="cont__fondo">
+    <section class="cont__fondo-consult" *ngIf="eventoTabs == 'CONSUL'">
+        <app-consult></app-consult>
+    </section>
+    <section class="cont__fondo-register" *ngIf="eventoTabs == 'REGIST'">
+        <app-register-pqr (setp)="recibirEvento($event)"></app-register-pqr>
+    </section>
+    <section class="cont__fondo-portada"
+        [ngStyle]="{width : eventoTabs == 'CONSUL' ? '60%' : eventoTabs == 'REGIST' ? '0%' : '0%'}">
+        <img src="../../assets/img/fondo/pqr.png" alt="" *ngIf="eventoTabs == 'CONSUL'">
+        <img class="fondo" src="../../assets/img/fondo/wave-haikei(1).svg" alt="">
+    </section>
+</section>
+
+<!-- <picture class="icono">
+    <a href="https://wa.link/eg18ht" target="_blank">
+        <img nzTooltipTitle="Contactanos" [nzTooltipPlacement]="['topLeft', 'leftTop']" nz-tooltip
+            src="../../assets/icons/whatsapp.png" alt="">
+    </a>
+</picture> -->
+
+<!-- <cui-support-chat></cui-support-chat> -->
