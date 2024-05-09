@@ -50,7 +50,7 @@ export class HttpImplentacionService {
   */
   actualizar<T>(ruta: string, body: T): Promise<T> {
     return new Promise<T>((resolve, reject) => {
-      this._http.guardar<T>(ruta, body).subscribe({
+      this._http.actualizar<T>(ruta, body).subscribe({
         next: (value: T) => {
           resolve(value);
         },

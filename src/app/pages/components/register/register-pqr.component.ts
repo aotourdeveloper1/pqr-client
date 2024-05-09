@@ -103,7 +103,7 @@ export class RegisterPqrComponent implements OnInit {
 
   modals: boolean = false;
 
-  enviado: boolean = false;
+  enviado: boolean = true;
 
   urlFile: any;
 
@@ -227,11 +227,12 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   nuevaPQR() {
-    this.enviado = false;
+    this.enviado = true;
     this.file = null;
     this.currentFileName = null;
     this.currentFileSize = null;
     this.formCotizaciones.reset();
+    this.formCotizaciones.get('fechaSolicitud')?.setValue(new Date());
     this.formCotizaciones.get('fkMedioNotificacion')?.setValue(25);
     this.current = 0;
   }
@@ -250,14 +251,14 @@ export class RegisterPqrComponent implements OnInit {
             finalize(() => {
               step.percentage = 0;
               this.processing = false;
-              this.current += 2;
+              this.current += 1;
             })
           )
           .subscribe((p) => {
             step.percentage = p;
           });
       } else {
-        this.current += 2;
+        this.current += 1;
       }
     }
   }
@@ -475,7 +476,7 @@ export class RegisterPqrComponent implements OnInit {
       .then(async (value: any) => {
         if (this.file) {
           this.estadoPQR = true;
-          this.enviado = true;
+          this.enviado = false;
           this._httpService.apiUrl = environment.urlS3;
           await this.generarFile(this.file, uuid);
           this._httpService.apiUrl = environment.urlPQR;
@@ -501,7 +502,7 @@ export class RegisterPqrComponent implements OnInit {
       })
       .catch((reason) => {
         this.estadoPQR = false;
-        this.enviado = true;
+        this.enviado = false;
       });
   }
 
@@ -518,14 +519,14 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   async putUrlEvidencia(url: string, pqr: number) {
-    this._httpImplService
+    await this._httpImplService
       .actualizar(`registro/update/url-pqr?url=${url}&pqr=${pqr}`, {})
       .then(async (value: any) => {})
       .catch((reason) => {});
   }
 
   async sendEmailRegisterPQR(pqr: number, url: null | string) {
-    this._httpImplService
+    await this._httpImplService
       .guardar('sendemail', {
         titulo: 'PQR N° ' + pqr,
         texto: 'Se ha generado una nueva PQR',
