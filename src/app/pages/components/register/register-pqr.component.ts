@@ -160,9 +160,23 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   changeClient() {
-    this.formCotizaciones.get('fkTipoSolicitud')?.enable();
+    if (
+      this.listCentrosCostos.filter(
+        (value: any) =>
+          value.nit == this.formCotizaciones.get('fkCliente')?.value
+      ).length > 0
+    ) {
+      this.formCotizaciones.get('fkTipoSolicitud')?.enable();
+      this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
 
-    this.getTipoSolicitud();
+      this.getTipoSolicitud();
+      return;
+    }
+    this.formCotizaciones.get('fkCliente')?.setValue(null);
+    this.message.info(
+      'Este nit de cliente no se encuentra registrado en el sistema'
+    );
+    this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
   }
 
   changeAreResponsable(event: any) {
@@ -378,7 +392,10 @@ export class RegisterPqrComponent implements OnInit {
     this._httpImplService
       .obtener(
         'parametria/list/tipos-solicitud-pqr?centroCosto=' +
-          this.formCotizaciones.value.fkCliente
+          // this.formCotizaciones.value.fkCliente
+          this.listCentrosCostos.find(
+            (value: any) => value.nit == this.formCotizaciones.value.fkCliente
+          ).id
       )
       .then((value: any) => {
         this.tipoSolicitud = value;
@@ -463,6 +480,9 @@ export class RegisterPqrComponent implements OnInit {
             }`
           : null,
         fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
+        fkCliente: this.listCentrosCostos.find(
+          (value: any) => value.nit == this.formCotizaciones.value.fkCliente
+        ).id,
         fkMedioNotificacion: 25,
         fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
         fkEstado: 4,

@@ -134,13 +134,8 @@
                 <label>Cliente<span>*</span>:</label>
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un cliente">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkCliente"
-                            (ngModelChange)="changeClient()">
-                            <nz-option [nzDisabled]="true" [nzValue]="undefined"
-                                nzLabel="Seleccione un cliente"></nz-option>
-                            <nz-option [nzValue]="item.id" [nzLabel]="item.razonsocial"
-                                *ngFor="let item of listCentrosCostos"></nz-option>
-                        </nz-select>
+                        <input nz-input class="input-field" formControlName="fkCliente"
+                        placeholder="Ingrese el nit del cliente" (blur)="changeClient()"/>
                     </nz-form-control>
                 </nz-form-item>
             </div>
