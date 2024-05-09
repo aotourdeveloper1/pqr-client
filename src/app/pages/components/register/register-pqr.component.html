@@ -34,7 +34,7 @@
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un primer nombre!">
                         <input nz-input class="input-field" formControlName="primerNombre"
-                            placeholder="Ingrese un correo eléctronico" />
+                            placeholder="Ingrese un primer nombre" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -44,7 +44,7 @@
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese un primer apellido!">
                         <input nz-input class="input-field" formControlName="primerApellido"
-                            placeholder="Ingrese un correo eléctronico" />
+                            placeholder="Ingrese un primer apellido" />
                     </nz-form-control>
                 </nz-form-item>
             </div>
@@ -79,7 +79,7 @@
                 <label>Area responsable<span>*</span>:</label>
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un area responsable!">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkAreaResponsable"
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkAreaResponsable" nzPlaceHolder="Seleccione un area responsable"
                             (ngModelChange)="changeAreResponsable($event)">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
                                 nzLabel="Seleccione una area"></nz-option>
@@ -144,7 +144,7 @@
                 <label>Tipo solicitud<span>*</span>:</label>
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de solicitud">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoSolicitud">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoSolicitud" nzPlaceHolder="Seleccione un tipo de solicitud">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
                                 nzLabel="Seleccione un tipo"></nz-option>
                             <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
@@ -155,12 +155,12 @@
             </div>
 
             <div nz-col [nzSpan]="24" [nzSm]="6">
-                <label>Criticidad <span>*</span>:</label>
+                <label>Prioridad <span>*</span>:</label>
                 <nz-form-item>
-                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione una criticidad!">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkCriticidad">
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione una prioridad!">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkCriticidad" nzPlaceHolder="Seleccione una prioridad">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
-                                nzLabel="Seleccione una criticidad"></nz-option>
+                                nzLabel="Seleccione una prioridad"></nz-option>
                             <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
                                 *ngFor="let item of criticidad"></nz-option>
                         </nz-select>
@@ -172,7 +172,7 @@
                 <label>Causa<span>*</span>:</label>
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione una causa!">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkCausa">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkCausa" nzPlaceHolder="Seleccione una causa">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
                                 nzLabel="Seleccione una causa"></nz-option>
                             <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
@@ -186,7 +186,7 @@
                 <label>Tipo de servicio <span>*</span>:</label>
                 <nz-form-item>
                     <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de servicio!">
-                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoServicio">
+                        <nz-select nzShowSearch nzAllowClear formControlName="fkTipoServicio" nzPlaceHolder="Seleccione un tipo de servicio">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
                                 nzLabel="Seleccione una tipo"></nz-option>
                             <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
