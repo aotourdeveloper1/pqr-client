@@ -20,6 +20,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzMessageModule } from 'ng-zorro-antd/message';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 const COMPONENTES: any[] = [
   NavbarComponent,
@@ -37,6 +38,7 @@ const MODULOS: any[] = [
   NzSelectModule,
   NzMessageModule,
   NzDatePickerModule,
+  NzSpinModule,
   CommonModule,
   FormsModule,
   ReactiveFormsModule,

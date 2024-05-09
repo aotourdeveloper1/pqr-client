@@ -162,7 +162,44 @@ export class RegisterPqrComponent implements OnInit {
   changeClient() {
     this.formCotizaciones.get('fkTipoSolicitud')?.enable();
 
-    this.getTipoSolicitud()
+    this.getTipoSolicitud();
+  }
+
+  changeAreResponsable(event: any) {
+    if (event.codigo == 'OPE') {
+      this.formCotizaciones
+        .get('fkConductor')
+        ?.addValidators(Validators.required);
+      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+
+      this.formCotizaciones.get('fkEmpleado')?.clearValidators();
+      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+
+      this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
+      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+    } else if (event.codigo == 'COO') {
+      this.formCotizaciones.get('fkConductor')?.clearValidators();
+      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+
+      this.formCotizaciones
+        .get('fkEmpleado')
+        ?.addValidators(Validators.required);
+      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+
+      this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
+      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+    } else {
+      this.formCotizaciones.get('fkConductor')?.clearValidators();
+      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+
+      this.formCotizaciones.get('fkEmpleado')?.clearValidators();
+      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+
+      this.formCotizaciones
+        .get('otrosObsevacion')
+        ?.addValidators(Validators.required);
+      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+    }
   }
 
   pre(): void {
@@ -174,10 +211,15 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   async done(): Promise<void> {
-    if (this.formCotizaciones.valid) {
+    if (this.formCotizaciones.valid && this.currentFileName) {
       await this.loadingAndStep();
       this.emitirEvento(this.current);
       this.postEnviaPQR();
+      return;
+    } else if (this.formCotizaciones.valid && !this.currentFileName) {
+      this.message.info(
+        'Debe ingresar una evidencia para poder registrar la PQR'
+      );
       return;
     }
     this.postEnviaPQR();
@@ -190,6 +232,7 @@ export class RegisterPqrComponent implements OnInit {
     this.currentFileName = null;
     this.currentFileSize = null;
     this.formCotizaciones.reset();
+    this.formCotizaciones.get('fkMedioNotificacion')?.setValue(25);
     this.current = 0;
   }
 
@@ -207,14 +250,14 @@ export class RegisterPqrComponent implements OnInit {
             finalize(() => {
               step.percentage = 0;
               this.processing = false;
-              this.current += 1;
+              this.current += 2;
             })
           )
           .subscribe((p) => {
             step.percentage = p;
           });
       } else {
-        this.current += 1;
+        this.current += 2;
       }
     }
   }
@@ -279,7 +322,6 @@ export class RegisterPqrComponent implements OnInit {
       });
   }
 
-
   getMedioNotificacion() {
     this._httpImplService
       .obtener('parametria/list/tipos-pqr?codigo=MED')
@@ -333,7 +375,10 @@ export class RegisterPqrComponent implements OnInit {
 
   getTipoSolicitud() {
     this._httpImplService
-      .obtener('parametria/list/tipos-solicitud-pqr?centroCosto=' + this.formCotizaciones.value.fkCliente)
+      .obtener(
+        'parametria/list/tipos-solicitud-pqr?centroCosto=' +
+          this.formCotizaciones.value.fkCliente
+      )
       .then((value: any) => {
         this.tipoSolicitud = value;
         this.tipoSolicitud = this.tipoSolicitud.filter(
@@ -429,6 +474,8 @@ export class RegisterPqrComponent implements OnInit {
       })
       .then(async (value: any) => {
         if (this.file) {
+          this.estadoPQR = true;
+          this.enviado = true;
           this._httpService.apiUrl = environment.urlS3;
           await this.generarFile(this.file, uuid);
           this._httpService.apiUrl = environment.urlPQR;
@@ -451,9 +498,6 @@ export class RegisterPqrComponent implements OnInit {
         );
 
         this._httpService.apiUrl = environment.urlPQR;
-
-        this.estadoPQR = true;
-        this.enviado = true;
       })
       .catch((reason) => {
         this.estadoPQR = false;
