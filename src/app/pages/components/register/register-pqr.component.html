@@ -133,7 +133,7 @@
             <div nz-col [nzSpan]="24" [nzSm]="6">
                 <label>Cliente<span>*</span>:</label>
                 <nz-form-item>
-                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un cliente">
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese el nit del cliente!">
                         <input nz-input class="input-field" formControlName="fkCliente"
                         placeholder="Ingrese el nit del cliente" (blur)="changeClient()"/>
                     </nz-form-control>
@@ -143,7 +143,7 @@
             <div nz-col [nzSpan]="24" [nzSm]="6">
                 <label>Tipo solicitud<span>*</span>:</label>
                 <nz-form-item>
-                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de solicitud">
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un tipo de solicitud!">
                         <nz-select nzShowSearch nzAllowClear formControlName="fkTipoSolicitud" nzPlaceHolder="Seleccione un tipo de solicitud">
                             <nz-option [nzDisabled]="true" [nzValue]="undefined"
                                 nzLabel="Seleccione un tipo"></nz-option>
