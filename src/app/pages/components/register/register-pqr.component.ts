@@ -124,10 +124,10 @@ export class RegisterPqrComponent implements OnInit {
       fkMedioNotificacion: [25, [Validators.required]],
       fechaSolicitud: [new Date(), [Validators.required]],
       fkCliente: ['', [Validators.required]],
-      fkConductor: [''],
-      fkEmpleado: [''],
-      otrosObsevacion: [''],
-      fkAreaResponsable: ['', [Validators.required]],
+      // fkConductor: [''],
+      // fkEmpleado: [''],
+      // otrosObsevacion: [''],
+      // fkAreaResponsable: ['', [Validators.required]],
       fkTipoSolicitud: ['', [Validators.required]],
       fkCriticidad: ['', [Validators.required]],
       fkCausa: ['', [Validators.required]],
@@ -180,42 +180,42 @@ export class RegisterPqrComponent implements OnInit {
     this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
   }
 
-  changeAreResponsable(event: any) {
-    if (event.codigo == 'OPE') {
-      this.formCotizaciones
-        .get('fkConductor')
-        ?.addValidators(Validators.required);
-      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+  // changeAreResponsable(event: any) {
+  //   if (event.codigo == 'OPE') {
+  //     this.formCotizaciones
+  //       .get('fkConductor')
+  //       ?.addValidators(Validators.required);
+  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
 
-      this.formCotizaciones.get('fkEmpleado')?.clearValidators();
-      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+  //     this.formCotizaciones.get('fkEmpleado')?.clearValidators();
+  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
 
-      this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
-      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-    } else if (event.codigo == 'COO') {
-      this.formCotizaciones.get('fkConductor')?.clearValidators();
-      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+  //     this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
+  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+  //   } else if (event.codigo == 'COO') {
+  //     this.formCotizaciones.get('fkConductor')?.clearValidators();
+  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
 
-      this.formCotizaciones
-        .get('fkEmpleado')
-        ?.addValidators(Validators.required);
-      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+  //     this.formCotizaciones
+  //       .get('fkEmpleado')
+  //       ?.addValidators(Validators.required);
+  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
 
-      this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
-      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-    } else {
-      this.formCotizaciones.get('fkConductor')?.clearValidators();
-      this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
+  //     this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
+  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+  //   } else {
+  //     this.formCotizaciones.get('fkConductor')?.clearValidators();
+  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
 
-      this.formCotizaciones.get('fkEmpleado')?.clearValidators();
-      this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
+  //     this.formCotizaciones.get('fkEmpleado')?.clearValidators();
+  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
 
-      this.formCotizaciones
-        .get('otrosObsevacion')
-        ?.addValidators(Validators.required);
-      this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-    }
-  }
+  //     this.formCotizaciones
+  //       .get('otrosObsevacion')
+  //       ?.addValidators(Validators.required);
+  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
+  //   }
+  // }
 
   pre(): void {
     this.current -= 1;
@@ -480,13 +480,13 @@ export class RegisterPqrComponent implements OnInit {
               String(this.currentFileName).split('.')[1]
             }`
           : null,
-        fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
+        // fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
         fkCliente: this.listCentrosCostos.find(
           (value: any) => value.nit == this.formCotizaciones.value.fkCliente
         ).id,
         fkMedioNotificacion: 25,
         fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
-        fkEstado: 4,
+        fkEstado: 7,
         fkResponsable: null,
         isRespuesta: false,
         isRechazado: false,
