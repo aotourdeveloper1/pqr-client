@@ -84,6 +84,7 @@ export class RegisterPqrComponent implements OnInit {
   medioNotificacion: any[] = [];
   causa: any[] = [];
   canal: any[] = [];
+  listConductor: any[] = [];
   listEmpleados: any[] = [];
   listCentrosCostos: any[] = [];
   tipoServicio: any[] = [];
@@ -144,11 +145,11 @@ export class RegisterPqrComponent implements OnInit {
     this.getAreaResponsable();
     this.getCausa();
     this.getCanal();
-    this.getConductor();
     this.getCriticidad();
     this.getTipoServicio();
-
+    
     this._httpService.apiUrl = environment.url;
+    this.getConductor();
     this.getCentroCosto();
     this.getListEmpleados();
     this._httpService.apiUrl = environment.urlPQR;
@@ -365,9 +366,9 @@ export class RegisterPqrComponent implements OnInit {
 
   getConductor() {
     this._httpImplService
-      .obtener('parametria/list/tipos-pqr?codigo=CRI')
+      .guardar('listdrivers', {})
       .then((value: any) => {
-        // this.areaResponsable = value;
+        this.listConductor = value.conductores;
       })
       .catch((reason) => {
         console.log(reason);
