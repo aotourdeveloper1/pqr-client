@@ -137,9 +137,21 @@
             <div nz-col [nzSpan]="24" [nzSm]="6">
                 <label>Cliente<span>*</span>:</label>
                 <nz-form-item>
-                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese el nit del cliente!">
+                    <!-- <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, ingrese el nit del cliente!">
                         <input nz-input class="input-field" formControlName="fkCliente"
                             placeholder="Ingrese el nit del cliente" (blur)="changeClient()" />
+                    </nz-form-control> -->
+                    <nz-form-control nz-col [nzSpan]="23" nzErrorTip="¡Por favor, seleccione un cliente!">
+                        <nz-select 
+                        nzShowSearch="true" 
+                        formControlName="fkCliente" 
+                        nzPlaceHolder="Seleccione un cliente" 
+                        (ngModelChange)="changeClient()"
+                        (nzOnSearch)="searchClient($event)">
+                        <nz-option [nzDisabled]="true" [nzValue]="undefined" nzLabel="Seleccione un cliente"></nz-option>
+                        <nz-option [nzValue]="item.id" [nzLabel]="item.razonsocial" *ngFor="let item of listCentrosCostos"></nz-option>
+                    </nz-select>
+                    
                     </nz-form-control>
                 </nz-form-item>
             </div>

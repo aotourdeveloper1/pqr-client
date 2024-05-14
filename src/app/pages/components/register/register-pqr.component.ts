@@ -87,6 +87,7 @@ export class RegisterPqrComponent implements OnInit {
   listConductor: any[] = [];
   listEmpleados: any[] = [];
   listCentrosCostos: any[] = [];
+  listCentrosCostosBase: any[] = [];
   tipoServicio: any[] = [];
   areaResponsable: any[] = [];
 
@@ -100,7 +101,7 @@ export class RegisterPqrComponent implements OnInit {
 
   file!: File | null;
 
-  estadoPQR: boolean = false;
+  estadoPQR: boolean = true;
 
   modals: boolean = false;
 
@@ -147,7 +148,7 @@ export class RegisterPqrComponent implements OnInit {
     this.getCanal();
     this.getCriticidad();
     this.getTipoServicio();
-    
+
     this._httpService.apiUrl = environment.url;
     this.getConductor();
     this.getCentroCosto();
@@ -161,23 +162,28 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   changeClient() {
-    if (
-      this.listCentrosCostos.filter(
-        (value: any) =>
-          value.nit == this.formCotizaciones.get('fkCliente')?.value
-      ).length > 0
-    ) {
-      this.formCotizaciones.get('fkTipoSolicitud')?.enable();
-      this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
+    this.formCotizaciones.get('fkTipoSolicitud')?.enable();
+    this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
 
-      this.getTipoSolicitud();
+    this.getTipoSolicitud();
+  }
+
+  searchClient(searchValue: string): void {
+    this.listCentrosCostosMet(searchValue);
+  }
+
+  listCentrosCostosMet(searchValue?: string) {
+    if (searchValue) {
+      const regex = new RegExp(
+        searchValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'),
+        'i'
+      );
+      this.listCentrosCostos = this.listCentrosCostosBase.filter((item) =>
+        regex.test(item.razonsocial)
+      );
       return;
     }
-    this.formCotizaciones.get('fkCliente')?.setValue(null);
-    this.message.info(
-      'Este nit de cliente no se encuentra registrado en el sistema'
-    );
-    this.formCotizaciones.get('fkTipoSolicitud')?.setValue(null);
+    this.listCentrosCostos.length = 0;
   }
 
   // changeAreResponsable(event: any) {
@@ -331,7 +337,8 @@ export class RegisterPqrComponent implements OnInit {
     await this._httpImplService
       .guardar('costcenterlist', {})
       .then((value: any) => {
-        this.listCentrosCostos = value.centrosdecosto;
+        // this.listCentrosCostos = value.centrosdecosto;
+        this.listCentrosCostosBase = value.centrosdecosto;
       })
       .catch((reason: any) => {
         console.log(reason);
@@ -393,10 +400,7 @@ export class RegisterPqrComponent implements OnInit {
     this._httpImplService
       .obtener(
         'parametria/list/tipos-solicitud-pqr?centroCosto=' +
-          // this.formCotizaciones.value.fkCliente
-          this.listCentrosCostos.find(
-            (value: any) => value.nit == this.formCotizaciones.value.fkCliente
-          ).id
+          this.formCotizaciones.value.fkCliente
       )
       .then((value: any) => {
         this.tipoSolicitud = value;
@@ -481,9 +485,6 @@ export class RegisterPqrComponent implements OnInit {
             }`
           : null,
         // fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
-        fkCliente: this.listCentrosCostos.find(
-          (value: any) => value.nit == this.formCotizaciones.value.fkCliente
-        ).id,
         fkMedioNotificacion: 25,
         fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
         fkEstado: 7,
