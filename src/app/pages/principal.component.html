@@ -1,5 +1,29 @@
 <section class="cont__fondo">
     <section class="cont__fondo-consult" *ngIf="eventoTabs == 'CONSUL'">
+        <!-- CONT - CABECERA -->
+        <header class="cont__header" *ngIf=" window < 768">
+            <!-- CONT - LOGO -->
+            <picture class="cont__header-picture">
+                <!-- IMG -->
+                <!-- <img class="cont__picture-img" src="../../../../assets/img/navbar/logo-entidad.png" alt=""> -->
+            </picture>
+            <!-- CONT - NAV -->
+            <nav class="cont__header-nav">
+                <!-- CONT - ITEMS -->
+                <ul class="cont__nav-ul">
+                    <!-- ITEMS -->
+                    <li class="cont__nav-li" (click)="emitEvent('CONSUL')"
+                        [ngClass]="eventoTabs == 'CONSUL' ? 'active-tabs' : '' ">Consulta</li>
+                    <li class="cont__nav-li" (click)="emitEvent('REGIST')"
+                        [ngClass]="eventoTabs == 'REGIST' ? 'active-tabs' : '' ">Registro</li>
+                    <!-- <li class="cont__nav-li" (click)="emitEvent('CONTAC')" [ngClass]="eventoTabs == 'CONTAC' ? 'active-tabs' : '' ">Contactanos</li> -->
+                </ul>
+            </nav>
+            <!-- CONT - BUTTONS -->
+            <!-- <section class="cont__header-section">
+        <button class="cont__section-button">Entrar</button>
+    </section> -->
+        </header>
         <app-consult></app-consult>
     </section>
     <section class="cont__fondo-register" *ngIf="eventoTabs == 'REGIST'">
