@@ -118,8 +118,11 @@ footer {
     width: 79.3px;
   }
 }
-// @media (min-width: 768px) {
-//   .cont__consulta {
-//     width: 60%;
-//   }
-// }
+
+@media (max-width: 768px) {
+  .cont__consulta {
+    width: 100%;
+    height: auto;
+    margin-top: 32px;
+  }
+}
