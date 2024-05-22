@@ -132,7 +132,7 @@
 
   .cont__nav-ul {
     width: 100%;
-    @include flex(flex-end, center);
+    @include flex(center, center);
     gap: 18px;
     list-style: none;
     color: #d46132;
