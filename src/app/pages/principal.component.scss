@@ -1,14 +1,20 @@
 .cont__fondo {
   display: flex;
+  background-color: #c83b00;
 }
 
 .cont__fondo-consult {
-  width: 100%;
+  width: 45%;
+  height: 100vh;
+  border-radius: 0px 40px 40px 0px;
+  background-color: white;
 }
 
 .cont__fondo-register {
-  width: 100%;
-  padding: 25px 10px 0px 10px;
+  width: 45%;
+  height: 100vh;
+  border-radius: 0px 40px 40px 0px;
+  background-color: white;
 
   display: flex;
   justify-content: center;
@@ -16,19 +22,27 @@
 }
 
 .cont__fondo-contact {
-  width: 100%;
+  width: 50%;
 }
 
 .cont__fondo-portada {
-  height: calc(100vh - 80px);
+  height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 32px;
+  position: relative;
+
+  app-navbar {
+    position: absolute;
+    top: 12px;
+    right: 0;
+  }
 
   img {
-    display: none;
-    width: 85%;
-    height: 70%;
+    width: 80%;
+    height: 65%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -44,6 +58,16 @@
     background-position: top top;
     background-repeat: no-repeat;
     background-size: contain;
+  }
+
+  span {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 17px;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 32px;
   }
 
   // div.white {
@@ -80,15 +104,15 @@
   }
 }
 
-@media (min-width: 768px) {
-  .cont__consulta {
-    width: 40%;
-  }
+// @media (min-width: 768px) {
+//   .cont__consulta {
+//     width: 40%;
+//   }
 
-  .cont__fondo-portada {
-    width: 60%;
-    img {
-      display: block;
-    }
-  }
-}
+//   .cont__fondo-portada {
+//     width: 60%;
+//     img {
+//       display: block;
+//     }
+//   }
+// }

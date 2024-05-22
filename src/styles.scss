@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
 /* Import one component's styles */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+
+@font-face {
+  font-family: "Sansation";
+  src: url("./assets/fonts/Sansation_Regular.ttf");
+}
 
 * {
   margin: 0px;
@@ -8,105 +14,125 @@
   box-sizing: border-box;
 }
 
-.ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
-  background: #d46132 !important;
-  border-color: #d46132 !important;
-}
+// .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+//   background: #d46132 !important;
+//   border-color: #d46132 !important;
+// }
 
-.ant-steps-item-finish .ant-steps-item-icon {
-  background-color: #fff;
-  border-color: #d46132;
-}
+// .ant-steps-item-finish .ant-steps-item-icon {
+//   background-color: #fff;
+//   border-color: #d46132;
+// }
 
-.anticon,
-.anticon svg {
-  display: inline-block;
-  color: #d46132;
-}
+// .anticon,
+// .anticon svg {
+//   display: inline-block;
+//   color: #d46132;
+// }
 
-.ant-steps-item-finish
-  > .ant-steps-item-container
-  > .ant-steps-item-content
-  > .ant-steps-item-title::after,
-.ant-steps-item-finish
-  > .ant-steps-item-container
-  > .ant-steps-item-tail::after {
-  background-color: #d46132;
-}
+// .ant-steps-item-finish
+//   > .ant-steps-item-container
+//   > .ant-steps-item-content
+//   > .ant-steps-item-title::after,
+// .ant-steps-item-finish
+//   > .ant-steps-item-container
+//   > .ant-steps-item-tail::after {
+//   background-color: #d46132;
+// }
 
-.ant-btn:focus,
-.ant-btn:hover {
-  color: #d46132;
-  border-color: #d46132;
-}
+// .ant-btn:focus,
+// .ant-btn:hover {
+//   color: #d46132;
+//   border-color: #d46132;
+// }
 
-.ant-progress-inner:not(.ant-progress-circle-gradient)
-  .ant-progress-circle-path {
-  stroke: #d46132;
-}
+// .ant-progress-inner:not(.ant-progress-circle-gradient)
+//   .ant-progress-circle-path {
+//   stroke: #d46132;
+// }
 
-.ant-btn-primary {
-  color: #fff;
-  border-color: #d46132;
-  background: #d46132;
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
-}
+// .ant-btn-primary {
+//   color: #fff;
+//   border-color: #d46132;
+//   background: #d46132;
+//   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+//   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+// }
 
-.ant-btn-primary:focus,
-.ant-btn-primary:hover {
-  border-color: #d46132;
-  background: #d46132;
-  color: #fff;
+// .ant-btn-primary:focus,
+// .ant-btn-primary:hover {
+//   border-color: #d46132;
+//   background: #d46132;
+//   color: #fff;
+// }
+.ant-select {
+  width: 100%;
 }
 
 .ant-select-selector {
-  border: 1px solid #aebbce !important;
-  box-sizing: border-box;
-  border-radius: 6px !important;
-  height: 38px !important;
-  width: 100% !important;
+  border: none !important;
+  border-radius: 16px !important;
+  height: 46px !important;
   display: flex;
   flex-direction: row;
   align-items: center;
   padding: 6px 0px;
-
-  font-style: normal;
-  font-weight: 400;
+  color: var(--Color-4, #bdbdbd) !important;
+  font-family: Poppins;
   font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.01em;
-  color: #798ca5;
-  background: transparent !important;
-  position: fixed;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.32px;
+  background: #f9fafb !important;
 }
 
-.ant-select {
+.ant-select:not(.ant-select-customize-input)
+  .ant-select-selector
+  .ant-select-selection-search-input {
+  margin-top: 8px !important;
+}
+
+.ant-select-arrow {
+  color: black !important;
+}
+
+.ant-picker {
+  border: none !important;
+  border-radius: 16px !important;
+  height: 46px !important;
   box-sizing: border-box;
   margin: 0;
-  padding: 0;
-  color: rgba(0, 0, 0, 0.85);
+  color: var(--Color-4, #bdbdbd) !important;
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5715;
   list-style: none;
   font-feature-settings: "tnum";
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-
-  span svg {
-    display: inline-block;
-    color: #aebbce !important;
-  }
+  padding: 4px 11px;
+  background: #fff;
+  transition: border 0.3s, box-shadow 0.3s;
+  background: #f9fafb !important;
+  min-width: 118px !important;
+  outline: none !important;
 }
 
-.ant-spin-dot-item {
-  background-color: #d46132;
-}
-
-.ant-spin {
-  color: #d46132;
+textarea {
+  border: none !important;
+  border-radius: 16px !important;
+  box-sizing: border-box;
+  margin: 0;
+  color: var(--Color-4, #bdbdbd) !important;
+  font-size: 14px;
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  padding: 4px 11px;
+  background: #fff;
+  transition: border 0.3s, box-shadow 0.3s;
+  background: #f9fafb !important;
+  outline: none !important;
 }
 
 nz-date-picker {
@@ -125,15 +151,15 @@ nz-date-picker {
   color: #798ca5;
 }
 
-.ant-select-focused:not(.ant-select-disabled).ant-select:not(
-    .ant-select-customize-input
-  )
-  .ant-select-selector {
-  border-color: #ff6010 !important;
-  box-shadow: 0 0 0 2px rgba(255, 96, 16, 0.2);
-  border-right-width: 1px;
-  outline: 0;
-}
+// .ant-select-focused:not(.ant-select-disabled).ant-select:not(
+//     .ant-select-customize-input
+//   )
+//   .ant-select-selector {
+//   border-color: #ff6010 !important;
+//   box-shadow: 0 0 0 2px rgba(255, 96, 16, 0.2);
+//   border-right-width: 1px;
+//   outline: 0;
+// }
 
 .disabled-select {
   background: #e4f2fe;

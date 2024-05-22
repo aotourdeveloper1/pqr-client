@@ -1,5 +1,5 @@
 .cont__consulta {
-  width: 100%;
+  width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -10,56 +10,116 @@
   padding: 0 22px;
 
   .cont__consulta-h2 {
-    font-size: 32px;
+    // font-family: Sansation;
+    font-size: 28px;
     font-weight: 700;
-    color: #d46132;
+    line-height: 34px;
+    color: #232323;
+    text-align: center;
   }
 
   .cont__consulta-p {
-    font-size: 18px;
-    font-weight: 500;
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 15px;
+    text-align: center;
   }
 
   .cont__consulta-button {
-    display: flex;
-    gap: 8px;
+    width: 100%;
 
-    .cont__button-input {
-      background-color: transparent;
-      color: black;
-      border: 2px solid #d46132;
-      text-transform: uppercase;
-      height: 35px;
-      border-radius: 6px;
-      width: 300px;
-      outline: none;
-      padding: 0px 10px;
+    .form__input {
+      width: 100%;
+      margin-bottom: 8px;
+      position: relative;
 
-      &::placeholder {
-        color: #d46132;
-        font-size: 12px;
-        text-transform: none;
-        padding: 0px 5px;
+      label {
+        margin-top: 12px;
+        letter-spacing: 0em;
+
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        text-align: left;
+      }
+      input {
+        margin: 4px 0px;
+        width: 100%;
+        height: 40px;
+        border-radius: 8px;
+        background-color: rgba(241, 243, 246, 1);
+        outline: none;
+        border: none;
+        padding-left: 10px;
+        font-size: 16px;
+
+        &::placeholder {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 24px;
+          letter-spacing: 0em;
+          text-align: left;
+        }
+      }
+
+      div.icon {
+        position: absolute;
+        background-color: rgba(200, 59, 0, 1);
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        bottom: 4px;
+        right: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     }
 
     .cont__button-button {
-      background-color: #d46132;
-      color: white;
-      border: 1px solid #d46132;
-      text-transform: uppercase;
-      height: 35px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 500;
-      padding: 0px 8px;
       cursor: pointer;
+      margin-top: 12px;
+      background-color: #db4403;
+      color: white;
+      width: 100%;
+      height: 46px;
+      border-radius: 16px;
+      border: none;
+      outline: none;
+      box-shadow: 0px 8px 12px 0px #fd74014d;
+
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 24px;
+      text-align: center;
     }
   }
 }
 
-@media (min-width: 768px) {
-  .cont__consulta {
-    width: 60%;
+footer {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  img.img__logo {
+    // height: 52px;
+    // width: 229px;
+    height: 49px;
+    width: 178px;
+    margin-bottom: 50px;
+  }
+
+  img.img__footer {
+    // height: 13.82px;
+    // width: 104.3px;
+    height: 10.82px;
+    width: 79.3px;
   }
 }
+// @media (min-width: 768px) {
+//   .cont__consulta {
+//     width: 60%;
+//   }
+// }

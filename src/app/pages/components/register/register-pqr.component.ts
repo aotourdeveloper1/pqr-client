@@ -109,6 +109,32 @@ export class RegisterPqrComponent implements OnInit {
 
   urlFile: any;
 
+  tagActivo: number = 0;
+  tag: any[] = [
+    {
+      id: 0,
+      codigo: 'TIP',
+      nombreTag: '1. Tipo de solicitud',
+    },
+
+    {
+      id: 1,
+      codigo: 'DES',
+      nombreTag: '2. Descripción',
+    },
+    {
+      id: 2,
+      codigo: 'DOC',
+      nombreTag: '3. Documentos',
+    },
+    {
+      id: 3,
+      codigo: 'RES',
+      nombreTag: '3. Respuesta',
+    },
+  ];
+  selectActive: boolean = false;
+
   constructor(
     private _httpService: HttpService,
     private _httpImplService: HttpImplentacionService,
@@ -157,6 +183,31 @@ export class RegisterPqrComponent implements OnInit {
     // this.getTipoSolicitud();
   }
 
+  // EVENTS
+  tagSeleccionadoMet(item: any) {
+    if (item.id == 3) {
+      if (this.formCotizaciones.valid && this.currentFileName) {
+        this.postEnviaPQR();
+        return;
+      } else if (this.formCotizaciones.valid && !this.currentFileName) {
+        this.message.info(
+          'Debe ingresar una evidencia para poder registrar la PQR'
+        );
+        this.tagActivo = 2;
+        return;
+      } else if (this.formCotizaciones.invalid) {
+        this.message.info(
+          'El registro de la PQR, no es valido faltán campos por llenar'
+        );
+        this.tagActivo = 0;
+        return;
+      }
+      this.postEnviaPQR();
+      this.tagActivo = 0;
+    }
+    this.tagActivo = item.id;
+  }
+
   recibirEstadoModal(event: boolean) {
     this.modals = event;
   }
@@ -183,58 +234,18 @@ export class RegisterPqrComponent implements OnInit {
       );
       return;
     }
-    this.listCentrosCostos.length = 0;
   }
 
-  // changeAreResponsable(event: any) {
-  //   if (event.codigo == 'OPE') {
-  //     this.formCotizaciones
-  //       .get('fkConductor')
-  //       ?.addValidators(Validators.required);
-  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
-
-  //     this.formCotizaciones.get('fkEmpleado')?.clearValidators();
-  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
-
-  //     this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
-  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-  //   } else if (event.codigo == 'COO') {
-  //     this.formCotizaciones.get('fkConductor')?.clearValidators();
-  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
-
-  //     this.formCotizaciones
-  //       .get('fkEmpleado')
-  //       ?.addValidators(Validators.required);
-  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
-
-  //     this.formCotizaciones.get('otrosObsevacion')?.clearValidators();
-  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-  //   } else {
-  //     this.formCotizaciones.get('fkConductor')?.clearValidators();
-  //     this.formCotizaciones.get('fkConductor')?.updateValueAndValidity();
-
-  //     this.formCotizaciones.get('fkEmpleado')?.clearValidators();
-  //     this.formCotizaciones.get('fkEmpleado')?.updateValueAndValidity();
-
-  //     this.formCotizaciones
-  //       .get('otrosObsevacion')
-  //       ?.addValidators(Validators.required);
-  //     this.formCotizaciones.get('otrosObsevacion')?.updateValueAndValidity();
-  //   }
-  // }
-
   pre(): void {
-    this.current -= 1;
+    this.tagActivo -= 1;
   }
 
   next(): void {
-    this.loadingAndStep();
+    this.tagActivo += 1;
   }
 
   async done(): Promise<void> {
     if (this.formCotizaciones.valid && this.currentFileName) {
-      await this.loadingAndStep();
-      this.emitirEvento(this.current);
       this.postEnviaPQR();
       return;
     } else if (this.formCotizaciones.valid && !this.currentFileName) {
@@ -242,9 +253,15 @@ export class RegisterPqrComponent implements OnInit {
         'Debe ingresar una evidencia para poder registrar la PQR'
       );
       return;
+    } else if (this.formCotizaciones.invalid) {
+      this.message.info(
+        'El registro de la PQR, no es valido faltán campos por llenar'
+      );
+      this.tagActivo = 0;
+      return;
     }
     this.postEnviaPQR();
-    this.current = 0;
+    this.tagActivo = 0;
   }
 
   nuevaPQR() {
@@ -255,33 +272,11 @@ export class RegisterPqrComponent implements OnInit {
     this.formCotizaciones.reset();
     this.formCotizaciones.get('fechaSolicitud')?.setValue(new Date());
     this.formCotizaciones.get('fkMedioNotificacion')?.setValue(25);
-    this.current = 0;
+    this.tagActivo = 0;
   }
 
   trackById(_: number, item: Step): number {
     return item.id;
-  }
-
-  loadingAndStep(): void {
-    if (this.current < this.steps.length) {
-      const step = this.steps[this.current];
-      if (step.async) {
-        this.processing = true;
-        mockAsyncStep()
-          .pipe(
-            finalize(() => {
-              step.percentage = 0;
-              this.processing = false;
-              this.current += 1;
-            })
-          )
-          .subscribe((p) => {
-            step.percentage = p;
-          });
-      } else {
-        this.current += 1;
-      }
-    }
   }
 
   onFileSelected(event: any) {
@@ -521,6 +516,7 @@ export class RegisterPqrComponent implements OnInit {
         );
 
         this._httpService.apiUrl = environment.urlPQR;
+        this.tagActivo = 3;
       })
       .catch((reason) => {
         this.estadoPQR = false;

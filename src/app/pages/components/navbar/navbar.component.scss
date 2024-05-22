@@ -32,17 +32,21 @@
 
     .cont__nav-li {
       font-family: "Lato", sans-serif;
-      font-weight: 700;
       font-size: 14px;
-      text-transform: uppercase;
       cursor: pointer;
+      color: white;
     }
   }
 }
 
 .active-tabs {
-  color: #d46132;
-  border-bottom: 2px solid #d46132;
+  width: 133px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid white;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
 }
 
 .cont__header-section {
@@ -60,15 +64,15 @@
   }
 }
 
-@media (min-width: 768px) {
-  .cont__header-nav {
-    .cont__nav-ul {
-      color: white;
-    }
-  }
+// @media (min-width: 768px) {
+//   .cont__header-nav {
+//     .cont__nav-ul {
+//       color: white;
+//     }
+//   }
 
-  .active-tabs {
-    color: white;
-    border-bottom: 2px solid white;
-  }
-}
+//   .active-tabs {
+//     color: white;
+//     border-bottom: 2px solid white;
+//   }
+// }

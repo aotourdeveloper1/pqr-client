@@ -5,7 +5,19 @@
         experiencia de búsqueda sea más inteligente y eficiente que nunca.
     </p>
     <div class="cont__consulta-button">
-        <input class="cont__button-input" type="number" [(ngModel)]="pqr" placeholder="Ingrese número de PQR">
+        <div class="form__input">
+            <label for="">Ingresar código</label>
+            <input [type]="!viewPassword ? 'text' : 'password'" [(ngModel)]="pqr" placeholder="Ingrese N° de PQR">
+            <div class="icon" style="cursor: pointer;" (click)="viewPassword = !viewPassword">
+                <img src="../../../../assets/icons/password.svg" alt="">
+            </div>
+        </div>
+
         <button class="cont__button-button" (click)="generacionDeProyecto()">Consultar</button>
+
+        <footer>
+            <img class="img__logo" src="../../../../assets/img/fondo/logo.png" alt="">
+            <img class="img__footer" src="../../../../assets/img/fondo/logo-footer.png" alt="">
+        </footer>
     </div>
 </section>

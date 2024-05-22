@@ -13,6 +13,8 @@ export class ConsultComponent {
 
   pqr: number = 0;
 
+  viewPassword: boolean = false;
+
   constructor(
     private _httpService: HttpService,
     private sanitazer: DomSanitizer,
@@ -27,7 +29,7 @@ export class ConsultComponent {
         typeDataSource: 'CONN',
         connect: 'UPNET',
         params: {
-          pqr: this.pqr,
+          pqr: Number(this.pqr),
         },
       })
       .subscribe({

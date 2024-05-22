@@ -1,20 +1,80 @@
-.steps-action {
-  margin-top: 16px;
+nav {
+  width: 100%;
+  height: 90px;
+
+  ul {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      picture {
+        display: flex;
+      }
+
+      button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #232323;
+        font-family: Poppins;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+nav {
+  ul {
+    li.tag-active {
+      padding: 0 8px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: var(--Principal-Color, #db4403);
+      box-shadow: 0px 7px 14.4px 0px #ffcbb5;
+
+      button {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      picture {
+        img {
+          filter: invert(1) sepia(1) hue-rotate(180deg) brightness(3);
+        }
+      }
+    }
+  }
 }
 
 form {
   padding: 20px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  // align-items: center;
+  gap: 22px;
 }
 
 label {
-  font-style: normal;
-  font-weight: 600;
   font-size: 14px;
-  line-height: 20px;
-  color: #798CA5;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-align: left;
+  margin-top: 12px;
 
-  display: flex;
-  gap: 4px;
   span {
     color: red;
     font-size: 16px;
@@ -23,24 +83,30 @@ label {
 }
 
 .input-field {
-  border: 1px solid #AEBBCE;
-  box-sizing: border-box;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 38px !important;
-
-  font-style: normal;
-  font-weight: 400;
+  color: var(--Color-4, #bdbdbd) !important;
+  font-family: Poppins;
   font-size: 14px;
-  line-height: 20px;
-  letter-spacing: -0.01em;
-  color: #798CA5;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 150% */
+  letter-spacing: -0.32px;
+  border-radius: 16px;
+  background: #f9fafb !important;
+  min-width: 113px;
+  width: 100%;
+  height: 46px;
+  flex-shrink: 0;
+  outline: none;
+  border: none;
+  padding: 0px 10px;
+
+  &::placeholder {
+    color: var(--Color-4, #bdbdbd) !important;
+  }
 }
 
 input:focus {
-  border-color: #FF6010;
+  border-color: #ff6010;
   box-shadow: 0 0 0 2px rgba(255, 96, 16, 0.2);
   border-right-width: 1px;
   outline: 0;
@@ -70,7 +136,7 @@ button {
 }
 
 textarea {
-  border: 1px solid #AEBBCE;
+  border: 1px solid #aebbce;
   box-sizing: border-box;
   border-radius: 6px;
   display: flex;
@@ -81,30 +147,35 @@ textarea {
   font-size: 14px;
   line-height: 20px;
   letter-spacing: -0.01em;
-  color: #798CA5;
+  color: #798ca5;
   width: 100%;
   padding: 10px;
   overflow: hidden;
 }
 
 textarea:focus {
-  border-color: #FF6010;
+  border-color: #ff6010;
   box-shadow: 0 0 0 2px rgba(255, 96, 16, 0.2);
   border-right-width: 1px;
   outline: 0;
 }
 
-
-.contenedor__card {
+.contenedor__evidencia {
   width: 100%;
-  height: 140px;
-  background-color: #e9eef5;
+  height: 220px;
+  border-radius: 16px;
+  background-color: #f9fafb;
+  position: relative;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px dashed #FF6010;
+  gap: 12px;
 
-  position: relative;
+  b {
+    color: #bdbdbd;
+  }
 }
 
 .card__success {
@@ -217,13 +288,32 @@ textarea:focus {
   z-index: 300;
 }
 
-nz-steps {
-  display: none;
-}
+footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 42px;
 
+  img {
+    width: 230px;
+  }
 
-@media (min-width: 768px) {
-  nz-steps {
-    display: block;
+  .cont__button-button {
+    cursor: pointer;
+    margin-top: 12px;
+    background-color: #db4403;
+    color: white;
+    width: 70%;
+    height: 46px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    box-shadow: 0px 8px 12px 0px #fd74014d;
+
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    text-align: center;
   }
 }
