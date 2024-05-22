@@ -105,7 +105,7 @@ export class RegisterPqrComponent implements OnInit {
 
   modals: boolean = false;
 
-  enviado: boolean = true;
+  enviado: boolean = false;
 
   urlFile: any;
 
@@ -185,6 +185,9 @@ export class RegisterPqrComponent implements OnInit {
 
   // EVENTS
   tagSeleccionadoMet(item: any) {
+    if (this.enviado) {
+      return;
+    }
     if (item.id == 3) {
       if (this.formCotizaciones.valid && this.currentFileName) {
         this.postEnviaPQR();
@@ -265,7 +268,7 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   nuevaPQR() {
-    this.enviado = true;
+    this.enviado = false;
     this.file = null;
     this.currentFileName = null;
     this.currentFileSize = null;
@@ -493,7 +496,7 @@ export class RegisterPqrComponent implements OnInit {
       .then(async (value: any) => {
         if (this.file) {
           this.estadoPQR = true;
-          this.enviado = false;
+          this.enviado = true;
           this._httpService.apiUrl = environment.urlS3;
           await this.generarFile(this.file, uuid);
           this._httpService.apiUrl = environment.urlPQR;
@@ -520,7 +523,7 @@ export class RegisterPqrComponent implements OnInit {
       })
       .catch((reason) => {
         this.estadoPQR = false;
-        this.enviado = false;
+        this.enviado = true;
       });
   }
 

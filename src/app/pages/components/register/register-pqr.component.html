@@ -123,7 +123,7 @@
 
         <div class="contenedor__evidencia">
             <img draggable="false" src="../../../../assets/icons/mdi_image-add-outline.svg" height="50%" class="mx-2">
-            <b>{{ currentFileSize ? currentFileSize : 'Presiona aquí para subir o arrastra y suelta un JPG,PNG y JPEG' }}</b>
+            <b>{{ currentFileSize ? (currentFileName + " "+ currentFileSize) : 'Presiona aquí para subir o arrastra y suelta un JPG,PNG y JPEG' }}</b>
             <input class="file-input" id="fileInput" type="file" (change)="onFileSelected($event)">
         </div>
 
