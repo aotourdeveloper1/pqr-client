@@ -484,7 +484,7 @@ export class RegisterPqrComponent implements OnInit {
           : null,
         // fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
         fkMedioNotificacion: 25,
-        fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
+        fkCanalRegistro: this.canal.find((value) => value.codigo == 'WEB').id,
         fkEstado: 7,
         fkResponsable: null,
         isRespuesta: false,
