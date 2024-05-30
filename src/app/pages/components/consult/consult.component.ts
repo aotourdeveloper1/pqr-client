@@ -39,7 +39,7 @@ export class ConsultComponent implements OnInit {
   }
 
   async generacionDeProyecto() {
-    if (this.listPQR.filter((value: any) => value.id == this.pqr).length > 0) {
+    if (this.listPQR ? this.listPQR.filter((value: any) => value.id == this.pqr).length > 0 : false) {
       if (
         this.listPQR.find((value: any) => value.id == this.pqr).is_respuesta ==
         1
