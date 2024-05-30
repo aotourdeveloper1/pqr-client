@@ -90,7 +90,7 @@ export class RegisterPqrComponent implements OnInit {
   listCentrosCostosBase: any[] = [];
   tipoServicio: any[] = [];
   areaResponsable: any[] = [];
-
+  
   current = 0;
   processing = false;
 
@@ -476,6 +476,7 @@ export class RegisterPqrComponent implements OnInit {
     this._httpImplService
       .guardar(`registro/created/registro-pqr?user=` + 0, {
         ...json,
+        id: this._utilsService.formatDate(new Date()).replaceAll('-', ''),
         // urlEvidencia: this.file,
         urlEvidencia: this.currentFileName
           ? `https://pqr-registro.s3.amazonaws.com/${uuid}_registro.${
