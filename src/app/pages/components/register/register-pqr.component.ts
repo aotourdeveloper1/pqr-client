@@ -90,7 +90,7 @@ export class RegisterPqrComponent implements OnInit {
   listCentrosCostosBase: any[] = [];
   tipoServicio: any[] = [];
   areaResponsable: any[] = [];
-  
+
   current = 0;
   processing = false;
 
@@ -150,13 +150,12 @@ export class RegisterPqrComponent implements OnInit {
       correo: ['', [Validators.required, Validators.email]],
       fkMedioNotificacion: [25, [Validators.required]],
       fechaSolicitud: [new Date(), [Validators.required]],
-      fkCliente: ['', [Validators.required]],
       // fkConductor: [''],
       // fkEmpleado: [''],
       // otrosObsevacion: [''],
       // fkAreaResponsable: ['', [Validators.required]],
+      fkCliente: ['', [Validators.required]],
       fkTipoSolicitud: ['', [Validators.required]],
-      fkCriticidad: ['', [Validators.required]],
       fkCausa: ['', [Validators.required]],
       fkTipoServicio: ['', [Validators.required]],
       observacion: ['', [Validators.required]],
@@ -485,14 +484,9 @@ export class RegisterPqrComponent implements OnInit {
           : null,
         // fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
         fkMedioNotificacion: 25,
-        fkCanalRegistro: this.canal.find((value) => value.codigo == 'WEB').id,
-        fkEstado: 7,
+        fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
+        fkEstado: 1,
         fkResponsable: null,
-        isRespuesta: false,
-        isRechazado: false,
-        isCitado: false,
-        isCerrado: false,
-        isPorroga: false,
       })
       .then(async (value: any) => {
         if (this.file) {

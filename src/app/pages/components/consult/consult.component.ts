@@ -39,10 +39,13 @@ export class ConsultComponent implements OnInit {
   }
 
   async generacionDeProyecto() {
-    if (this.listPQR ? this.listPQR.filter((value: any) => value.id == this.pqr).length > 0 : false) {
+    if (
+      this.listPQR
+        ? this.listPQR.filter((value: any) => value.id == this.pqr).length > 0
+        : false
+    ) {
       if (
-        this.listPQR.find((value: any) => value.id == this.pqr).is_respuesta ==
-        1
+        this.listPQR.find((value: any) => value.id == this.pqr).fk_estado.id == 3
       ) {
         this._httpService
           .generacionReports({
@@ -75,15 +78,13 @@ export class ConsultComponent implements OnInit {
             },
             complete: () => {},
           });
-      }else {
+      } else {
         this.message.info(
           'Esta PQR, No tiene una respuesta todavia para su generación'
         );
       }
     } else {
-      this.message.info(
-        'Esta PQR, No se encuentra registrada en el sistema'
-      );
+      this.message.info('Esta PQR, No se encuentra registrada en el sistema');
     }
   }
 }

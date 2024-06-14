@@ -14,7 +14,7 @@
 
             <!-- SECTION 1 -->
             <div nz-col [nzSpan]="24" [nzSm]="8">
-                <label>Fecha de solictud</label>
+                <label>Fecha de incidencia</label>
                 <nz-date-picker formControlName="fechaSolicitud"></nz-date-picker>
             </div>
 
@@ -72,14 +72,14 @@
                 </nz-select>
             </div>
 
-            <div nz-col [nzSpan]="24" [nzSm]="8">
+            <!-- <div nz-col [nzSpan]="24" [nzSm]="8">
                 <label>Prioridad </label>
                 <nz-select nzShowSearch nzAllowClear formControlName="fkCriticidad"
                     nzPlaceHolder="Seleccione una prioridad">
                     <nz-option [nzDisabled]="true" [nzValue]="undefined" nzLabel="Seleccione una prioridad"></nz-option>
                     <nz-option [nzValue]="item.id" [nzLabel]="item.nombre" *ngFor="let item of criticidad"></nz-option>
                 </nz-select>
-            </div>
+            </div> -->
 
             <div nz-col [nzSpan]="24" [nzSm]="8">
                 <label>Causa</label>
