@@ -254,10 +254,10 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   async done(): Promise<void> {
-    if (this.formCotizaciones.valid && this.currentFileName) {
+    if (this.formCotizaciones.valid && this.listFileView.length > 0) {
       this.postEnviaPQR();
       return;
-    } else if (this.formCotizaciones.valid && !this.currentFileName) {
+    } else if (this.formCotizaciones.valid && this.listFileView.length == 0) {
       this.message.info(
         'Debe ingresar una evidencia para poder registrar la PQR'
       );
