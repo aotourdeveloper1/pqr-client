@@ -91,8 +91,11 @@ export class RegisterPqrComponent implements OnInit {
   listCentrosCostosBase: any[] = [];
   tipoServicio: any[] = [];
   areaResponsable: any[] = [];
-  entidadList: IEntidad[] = entidad;
 
+  listFileView: any[] = [];
+  listFile: any[] = [];
+
+  entidadList: IEntidad[] = entidad;
 
   current = 0;
   processing = false;
@@ -279,14 +282,22 @@ export class RegisterPqrComponent implements OnInit {
     this.formCotizaciones.get('fechaSolicitud')?.setValue(new Date());
     this.formCotizaciones.get('fkMedioNotificacion')?.setValue(25);
     this.tagActivo = 0;
+
+    this.listFile.length = 0;
+    this.listFileView.length = 0;
   }
 
   trackById(_: number, item: Step): number {
     return item.id;
   }
 
+  eliminarFileList(item: any) {
+    this.listFileView = this.listFileView.filter((value) => value.id != item.id);
+    this.listFile = this.listFile.filter((file: any) => file.id != item.id);
+  }
+
   onFileSelected(event: any) {
-    const extencionesValidas = ['jpg', 'png', 'jpeg'];
+    const extencionesValidas = ['jpg', 'png', 'jpeg', 'pdf'];
     const file: File = event.target.files[0];
     const inputElement = document.getElementById(
       'fileInput'
@@ -306,16 +317,47 @@ export class RegisterPqrComponent implements OnInit {
         this.message.create('error', `Esta extensión de archivo no es válida`);
         return;
       }
+      if (this.listFileView.length == 5) {
+        this.message.info('No es posible subir mas evidencias maximo son 5');
+        return;
+      }
+
       this.currentFileName = event.target.files[0].name;
       this.currentFileSize = this._utilsService.formatBytes(
         event.target.files[0].size
       );
+
       // Cambiar el nombre del archivo
       this.file = new File(
         [file],
-        `registro.${String(event.target.files[0].name).split('.')[1]}`
+        `${
+          this.listFileView.length == 0
+            ? 1
+            : this.listFileView[this.listFileView.length - 1].id + 1
+        }_registro.${String(event.target.files[0].name).split('.')[String(event.target.files[0].name).split('.').length - 1]}`
       );
+
+      this.listFileView.push({
+        id:
+          this.listFileView.length == 0
+            ? 1
+            : this.listFileView[this.listFileView.length - 1].id  + 1,
+        name: `${
+          this.listFileView.length == 0
+            ? 1
+            : this.listFileView[this.listFileView.length - 1].id  + 1
+        }_registro.${String(event.target.files[0].name).split('.')[String(event.target.files[0].name).split('.').length - 1]}`,
+      });
+
+      this.listFile.push({
+        id:
+          this.listFile.length == 0
+            ? 1
+            : this.listFile[this.listFile.length - 1].id,
+        file: this.file,
+      });
     }
+    inputElement.value = ''; // Restablecer el valor a una cadena vacía
   }
 
   emitirEvento(setp: number) {
@@ -480,41 +522,28 @@ export class RegisterPqrComponent implements OnInit {
       .guardar(`registro/created/registro-pqr?user=` + 0, {
         ...json,
         id: this._utilsService.formatDate(new Date()).replaceAll('-', ''),
-        // urlEvidencia: this.file,
-        urlEvidencia: this.currentFileName
-          ? `https://pqr-registro.s3.amazonaws.com/${uuid}_registro.${
-              String(this.currentFileName).split('.')[1]
-            }`
-          : null,
-        // fkAreaResponsable: this.formCotizaciones.value.fkAreaResponsable.id,
+        urlEvidencia:  (this.listFileView.length == 0 ? null : this.listFileView.map((value: any) => `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`)),
         fkMedioNotificacion: 25,
         fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
         fkEstado: 1,
         fkResponsable: null,
       })
       .then(async (value: any) => {
-        if (this.file) {
+        if (this.listFileView.length > 0) {
           this.estadoPQR = true;
           this.enviado = true;
           this._httpService.apiUrl = environment.urlS3;
-          await this.generarFile(this.file, uuid);
+
+          await this.listFile.forEach(async (value: any) => {
+            await this.generarFile(value.file, uuid);
+          });
           this._httpService.apiUrl = environment.urlPQR;
-          await this.putUrlEvidencia(
-            `https://pqr-registro.s3.amazonaws.com/${uuid}_registro.${
-              String(this.currentFileName).split('.')[1]
-            }`,
-            value.id
-          );
         }
 
         this._httpService.apiUrl = environment.url;
         await this.sendEmailRegisterPQR(
           value.id,
-          this.file
-            ? `https://pqr-registro.s3.amazonaws.com/${uuid}_registro.${
-                String(this.currentFileName).split('.')[1]
-              }`
-            : null
+          (this.listFileView.length == 0 ? null : this.listFileView.map((value: any) => `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`))
         );
 
         this._httpService.apiUrl = environment.urlPQR;
@@ -538,14 +567,7 @@ export class RegisterPqrComponent implements OnInit {
       .catch((reason) => {});
   }
 
-  async putUrlEvidencia(url: string, pqr: number) {
-    await this._httpImplService
-      .actualizar(`registro/update/url-pqr?url=${url}&pqr=${pqr}`, {})
-      .then(async (value: any) => {})
-      .catch((reason) => {});
-  }
-
-  async sendEmailRegisterPQR(pqr: number, url: null | string) {
+  async sendEmailRegisterPQR(pqr: number, url: null | string[]) {
     await this._httpImplService
       .guardar('sendemail', {
         titulo: 'PQR N° ' + pqr,
@@ -553,7 +575,7 @@ export class RegisterPqrComponent implements OnInit {
         nombre: 'PQR N° ' + pqr,
         asunto: 'Registro de PQR desde link público',
         email: this.formCotizaciones.value.correo,
-        url: null,
+        url: url,
       })
       .then(async (value: any) => {})
       .catch((reason) => {});
