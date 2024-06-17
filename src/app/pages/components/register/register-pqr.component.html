@@ -52,6 +52,16 @@
                         *ngFor="let item of medioNotificacion"></nz-option>
                 </nz-select>
             </div>
+            
+            <div nz-col [nzSpan]="24" [nzSm]="8">
+                <label>Sede</label>
+                <nz-select nzShowSearch="true" formControlName="fkSede" nzPlaceHolder="Seleccione una sede">
+                    <nz-option [nzDisabled]="true" [nzValue]="undefined" nzLabel="Seleccione una sede"></nz-option>
+                    <nz-option [nzValue]="item.id" [nzLabel]="item.nombre"
+                        *ngFor="let item of entidadList"></nz-option>
+                </nz-select>
+            </div>
+
             <div nz-col [nzSpan]="24" [nzSm]="8">
                 <label>Cliente</label>
                 <nz-select nzShowSearch="true" formControlName="fkCliente" nzPlaceHolder="Seleccione un cliente"

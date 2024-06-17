@@ -9,6 +9,7 @@ import { environment } from 'src/environments/environment';
 import { UtilsService } from '../../../shared/utils/utils.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { DomSanitizer } from '@angular/platform-browser';
+import { IEntidad, entidad } from './models/IEntidad.interface';
 
 interface SyncStep {
   id: number;
@@ -90,6 +91,8 @@ export class RegisterPqrComponent implements OnInit {
   listCentrosCostosBase: any[] = [];
   tipoServicio: any[] = [];
   areaResponsable: any[] = [];
+  entidadList: IEntidad[] = entidad;
+
 
   current = 0;
   processing = false;
@@ -154,6 +157,7 @@ export class RegisterPqrComponent implements OnInit {
       // fkEmpleado: [''],
       // otrosObsevacion: [''],
       // fkAreaResponsable: ['', [Validators.required]],
+      fkSede: ['', [Validators.required]],
       fkCliente: ['', [Validators.required]],
       fkTipoSolicitud: ['', [Validators.required]],
       fkCausa: ['', [Validators.required]],
