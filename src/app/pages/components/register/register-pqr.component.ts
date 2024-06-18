@@ -292,7 +292,9 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   eliminarFileList(item: any) {
-    this.listFileView = this.listFileView.filter((value) => value.id != item.id);
+    this.listFileView = this.listFileView.filter(
+      (value) => value.id != item.id
+    );
     this.listFile = this.listFile.filter((file: any) => file.id != item.id);
   }
 
@@ -334,19 +336,27 @@ export class RegisterPqrComponent implements OnInit {
           this.listFileView.length == 0
             ? 1
             : this.listFileView[this.listFileView.length - 1].id + 1
-        }_registro.${String(event.target.files[0].name).split('.')[String(event.target.files[0].name).split('.').length - 1]}`
+        }_registro.${
+          String(event.target.files[0].name).split('.')[
+            String(event.target.files[0].name).split('.').length - 1
+          ]
+        }`
       );
 
       this.listFileView.push({
         id:
           this.listFileView.length == 0
             ? 1
-            : this.listFileView[this.listFileView.length - 1].id  + 1,
+            : this.listFileView[this.listFileView.length - 1].id + 1,
         name: `${
           this.listFileView.length == 0
             ? 1
-            : this.listFileView[this.listFileView.length - 1].id  + 1
-        }_registro.${String(event.target.files[0].name).split('.')[String(event.target.files[0].name).split('.').length - 1]}`,
+            : this.listFileView[this.listFileView.length - 1].id + 1
+        }_registro.${
+          String(event.target.files[0].name).split('.')[
+            String(event.target.files[0].name).split('.').length - 1
+          ]
+        }`,
       });
 
       this.listFile.push({
@@ -522,7 +532,13 @@ export class RegisterPqrComponent implements OnInit {
       .guardar(`registro/created/registro-pqr?user=` + 0, {
         ...json,
         id: this._utilsService.formatDate(new Date()).replaceAll('-', ''),
-        urlEvidencia:  (this.listFileView.length == 0 ? null : this.listFileView.map((value: any) => `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`)),
+        urlEvidencia:
+          this.listFileView.length == 0
+            ? null
+            : this.listFileView.map(
+                (value: any) =>
+                  `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`
+              ),
         fkMedioNotificacion: 25,
         fkCanalRegistro: this.canal.find((value) => value.codigo == 'PLA').id,
         fkEstado: 1,
@@ -543,7 +559,12 @@ export class RegisterPqrComponent implements OnInit {
         this._httpService.apiUrl = environment.url;
         await this.sendEmailRegisterPQR(
           value.id,
-          (this.listFileView.length == 0 ? null : this.listFileView.map((value: any) => `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`))
+          this.listFileView.length == 0
+            ? null
+            : this.listFileView.map(
+                (value: any) =>
+                  `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`
+              )
         );
 
         this._httpService.apiUrl = environment.urlPQR;
@@ -568,6 +589,20 @@ export class RegisterPqrComponent implements OnInit {
   }
 
   async sendEmailRegisterPQR(pqr: number, url: null | string[]) {
+    const copias: string[] = [
+      'jefedetransporte@aotour.com.co',
+      'j.ojeda@aotour.com.co',
+      'gustelo@aotour.com.co',
+    ];
+
+    if (this.formCotizaciones.value.fkSede == 1) {
+      copias.push('liderdetransporte@aotour.com.co');
+    } else if (this.formCotizaciones.value.fkSede == 2) {
+      copias.push('liderdetransportebog@aotour.com.co');
+    } else {
+      copias.push('liderdetransporte@aotour.com.co');
+      copias.push('liderdetransportebog@aotour.com.co');
+    }
     await this._httpImplService
       .guardar('sendemail', {
         titulo: 'PQR N° ' + pqr,
@@ -575,6 +610,7 @@ export class RegisterPqrComponent implements OnInit {
         nombre: 'PQR N° ' + pqr,
         asunto: 'Registro de PQR desde link público',
         email: this.formCotizaciones.value.correo,
+        copias: copias,
         url: url,
       })
       .then(async (value: any) => {})
