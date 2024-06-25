@@ -560,7 +560,7 @@ export class RegisterPqrComponent implements OnInit {
         await this.sendEmailRegisterPQR(
           value.id,
           this.listFileView.length == 0
-            ? null
+            ? []
             : this.listFileView.map(
                 (value: any) =>
                   `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`
