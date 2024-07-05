@@ -607,7 +607,7 @@ export class RegisterPqrComponent implements OnInit {
         asunto: 'Registro de PQR desde link público',
         email: this.formCotizaciones.value.correo,
         copias: copias,
-        url: url,
+        url: [],
       })
       .then(async (value: any) => {})
       .catch((reason) => {});
