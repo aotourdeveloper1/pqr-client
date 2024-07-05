@@ -517,6 +517,7 @@ export class RegisterPqrComponent implements OnInit {
       return;
     }
 
+    this.enviado = true;
     // if (!this.isAutorize) {
     // this.message.info(
     // 'No es posible registrar la PQR, sino acepta los terminos y condiciones'
@@ -547,7 +548,6 @@ export class RegisterPqrComponent implements OnInit {
       .then(async (value: any) => {
         if (this.listFileView.length > 0) {
           this.estadoPQR = true;
-          this.enviado = true;
           this._httpService.apiUrl = environment.urlS3;
 
           await this.listFile.forEach(async (value: any) => {
@@ -559,20 +559,15 @@ export class RegisterPqrComponent implements OnInit {
         this._httpService.apiUrl = environment.url;
         await this.sendEmailRegisterPQR(
           value.id,
-          this.listFileView.length == 0
-            ? []
-            : this.listFileView.map(
-                (value: any) =>
-                  `https://pqr-registro.s3.amazonaws.com/${uuid}_${value.name}`
-              )
+          []
         );
-
+        this.enviado = false;
         this._httpService.apiUrl = environment.urlPQR;
         this.tagActivo = 3;
       })
       .catch((reason) => {
         this.estadoPQR = false;
-        this.enviado = true;
+        this.enviado = false;
       });
   }
 
@@ -592,6 +587,7 @@ export class RegisterPqrComponent implements OnInit {
     const copias: string[] = [
       'jefedetransporte@aotour.com.co',
       'j.ojeda@aotour.com.co',
+      'comercial@aotour.com.co',
       'gustelo@aotour.com.co',
     ];
 
