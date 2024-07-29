@@ -595,9 +595,17 @@ export class RegisterPqrComponent implements OnInit {
       copias.push('liderdetransporte@aotour.com.co');
     } else if (this.formCotizaciones.value.fkSede == 2) {
       copias.push('liderdetransportebog@aotour.com.co');
+      copias.push('facilitiesbogotaamericas@sutherlandglobal.com.co');
+      copias.push('jainer.davila@sutherlandglobal.com');
+      copias.push('julian.trillos@sutherlandglobal.com');
+      copias.push('daniel.guzman3@sutherlandglobal.com');
     } else {
       copias.push('liderdetransporte@aotour.com.co');
       copias.push('liderdetransportebog@aotour.com.co');
+      copias.push('facilitiesbogotaamericas@sutherlandglobal.com.co');
+      copias.push('jainer.davila@sutherlandglobal.com');
+      copias.push('julian.trillos@sutherlandglobal.com');
+      copias.push('daniel.guzman3@sutherlandglobal.com');
     }
     await this._httpImplService
       .guardar('sendemail', {
