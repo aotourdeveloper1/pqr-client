@@ -31,7 +31,7 @@ export class ConsultComponent implements OnInit {
 
   getPQR() {
     this._httpImplService
-      .obtener('registro/list/registro-json-pqr?cliente=0')
+      .obtener('registro/list/registro-json-pqr?cliente=0&fechaIni=0&fechaFin=0')
       .then((value: any) => {
         this.listPQR = value;
       })
