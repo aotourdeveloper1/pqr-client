@@ -1,0 +1,25 @@
+<div class="modal-backdrop" *ngIf="show">
+    <div class="modal-container">
+      <button class="close-button" (click)="onClose()">×</button>
+      <h2 class="modal-title">Respuesta PQR</h2>
+  
+      <div class="modal-content" *ngIf="mensajeNoRespuesta">
+        <p>{{ mensajeNoRespuesta }}</p>
+      </div>
+  
+      <div class="modal-content" *ngIf="reclamante && respuesta">
+        <div class="divider"> <h3 style="color: white;">Datos del reclamante</h3> </div>
+        <p><strong>Fecha de solicitud:</strong> {{ reclamante.fecha_solicitud }}</p>
+        <p><strong>Tipo de solicitud:</strong> {{ reclamante.tipo_solicitud }}</p>
+        <p><strong>Cliente:</strong> {{ reclamante.cliente }}</p>
+        <p><strong>Nombre:</strong> {{ reclamante.nombre }}</p>
+        <p><strong>Correo:</strong> {{ reclamante.correo }}</p>
+  
+        <div class="divider"><h3 style="color: white;">Respuesta</h3></div>
+        <p><strong>Fecha de respuesta:</strong> {{ respuesta.fecha }}</p>
+        <p><strong>Contenido:</strong></p>
+        <pre style="white-space: pre-wrap;">{{ respuesta.texto }}</pre>
+      </div>
+    </div>
+  </div>
+  

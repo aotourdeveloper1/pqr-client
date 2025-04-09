@@ -11,6 +11,7 @@ import { SupportChatComponent } from './components/SupportChat/support-chat.comp
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { MinusculasPipe } from './pipes/minusculas.pipe';
+import { ModalComponentA } from './modal/modal.component';
 
 const COMPONENTES: any[] = [
   BreadcrumdsComponent,
@@ -25,7 +26,9 @@ const COMPONENTES: any[] = [
 @NgModule({
   declarations: [
     // Componentes, directivas, pipes, etc.
-    ...COMPONENTES
+    ...COMPONENTES,
+    ModalComponent,
+    ModalComponentA
   ],
   imports: [
     // Otros módulos que puedas necesitar
@@ -35,7 +38,8 @@ const COMPONENTES: any[] = [
   ],
   exports: [
     // Componentes, directivas o pipes del módulo actual deben estar disponibles para otros módulos que importen el módulo actual. Este bloque no se utiliza para exportar servicios.
-    ...COMPONENTES
+    ...COMPONENTES,
+    ModalComponentA
   ],
   providers: [
     // Registrar servicios a nivel de módulo. Estos servicios estarán disponibles para todos los componentes, directivas u otros servicios dentro del mismo módulo.

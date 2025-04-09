@@ -12,11 +12,23 @@
             </div>
         </div>
 
-        <button class="cont__button-button" (click)="generacionDeProyecto()">Consultar</button>
+        <button class="cont__button-button" (click)="openModal()">Consultar</button>
 
         <footer>
             <img class="img__logo" src="../../../../assets/img/fondo/logo.png" alt="">
             <!-- <img class="img__footer" src="../../../../assets/img/fondo/logo-footer.png" alt=""> -->
         </footer>
     </div>
+    
 </section>
+
+<app-modal-a
+  *ngIf="showModal"
+  [title]="'Título del Modal'"
+  [PQR]="pqr"
+  [show]="showModal"
+  (close)="closeModal()"
+></app-modal-a>
+
+
+

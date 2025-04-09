@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit ,EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { HttpService } from 'src/app/shared/services/http.service';
 import { HttpImplentacionService } from 'src/app/shared/services/impl/http-implentacion.service';
 import { environment } from 'src/environments/environment';
+import { SharedModule } from 'src/app/shared/shared.module'; // 👈 El import correcto
 
 @Component({
   selector: 'app-consult',
@@ -27,6 +28,17 @@ export class ConsultComponent implements OnInit {
   ngOnInit(): void {
     this._httpService.apiUrl = environment.urlPQR;
     this.getPQR();
+  }
+
+
+  showModal = false;
+
+  openModal() {
+    this.showModal = true;
+  }
+
+  closeModal() {
+    this.showModal = false;
   }
 
   getPQR() {
