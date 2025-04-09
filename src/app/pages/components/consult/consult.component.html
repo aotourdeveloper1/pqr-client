@@ -6,7 +6,7 @@
     <div class="cont__consulta-button">
         <div class="form__input">
             <label for="">Ingresar N° de la PQR</label>
-            <input [type]="!viewPassword ? 'text' : 'password'" [(ngModel)]="pqr" placeholder="Ingrese N° de la PQR">
+            <input [type]="!viewPassword ? 'text' : 'password'" [(ngModel)]="pqr" (keypress)="onlyNumberKey($event)" placeholder="Ingrese N° de la PQR">
             <div class="icon" style="cursor: pointer;" (click)="viewPassword = !viewPassword">
                 <img src="../../../../assets/icons/password.svg" alt="">
             </div>

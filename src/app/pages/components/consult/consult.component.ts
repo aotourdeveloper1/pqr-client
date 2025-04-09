@@ -30,10 +30,22 @@ export class ConsultComponent implements OnInit {
     this.getPQR();
   }
 
+  onlyNumberKey(event: KeyboardEvent): void {
+    const charCode = event.keyCode || event.which;
+    if (charCode < 48 || charCode > 57) {
+      event.preventDefault();
+    }
+  }
+  
 
-  showModal = false;
+
+  showModal = false;  
 
   openModal() {
+    if (!this.pqr || isNaN(Number(this.pqr))) {
+      alert('Por favor, ingrese un número de PQR válido.');
+      return;
+    }
     this.showModal = true;
   }
 
