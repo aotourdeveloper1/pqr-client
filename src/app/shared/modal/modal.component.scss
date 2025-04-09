@@ -15,11 +15,14 @@
     background: #fff;
     border-radius: 16px;
     padding: 30px;
-    width: 600px;
-    max-width: 90%;
+    width: 90%;
+    max-width: 600px;
     position: relative;
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    max-height: 90vh;
+    overflow-y: auto;
   }
+  
   
   .modal-title {
     color: #e65100;
